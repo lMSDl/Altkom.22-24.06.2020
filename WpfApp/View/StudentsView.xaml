@@ -13,10 +13,11 @@
     </UserControl.DataContext>
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Content="Usuń" />
+            <Button Content="Usuń" Command="{Binding DeleteCommand}" />
         </StackPanel>
         
         <DataGrid ItemsSource="{Binding Students}"
+                  SelectedItem="{Binding SelectedStudent}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   DockPanel.Dock="Top">
