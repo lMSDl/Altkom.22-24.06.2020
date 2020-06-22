@@ -117,34 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Dodaj</value>
+  <data name="Female" xml:space="preserve">
+    <value>Kobieta</value>
   </data>
-  <data name="Age" xml:space="preserve">
-    <value>Wiek</value>
-  </data>
-  <data name="BirthDate" xml:space="preserve">
-    <value>Data urodzenia</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Anuluj</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Usuń</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edytuj</value>
-  </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>Imię</value>
-  </data>
-  <data name="Gender" xml:space="preserve">
-    <value>Płeć</value>
-  </data>
-  <data name="LastName" xml:space="preserve">
-    <value>Nazwisko</value>
-  </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
+  <data name="Male" xml:space="preserve">
+    <value>Mężczyzna</value>
   </data>
 </root>

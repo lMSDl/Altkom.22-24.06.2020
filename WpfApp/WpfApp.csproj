@@ -56,7 +56,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CustomCommand.cs" />
+    <Compile Include="Converters\BirthDateToAgeConverter.cs" />
+    <Compile Include="ViewModel\StudentDialogViewModel.cs" />
     <Compile Include="ViewModel\StudentsViewModel.cs" />
+    <Compile Include="View\StudentDialogView.xaml.cs">
+      <DependentUpon>StudentDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StudentsView.xaml.cs">
       <DependentUpon>StudentsView.xaml</DependentUpon>
     </Compile>
@@ -72,6 +77,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\StudentDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StudentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

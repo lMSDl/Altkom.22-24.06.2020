@@ -6,14 +6,20 @@
              xmlns:local="clr-namespace:WpfApp.View"
              xmlns:viewModels="clr-namespace:WpfApp.ViewModel"
              xmlns:resx="clr-namespace:WpfApp.Properties"
+             xmlns:converters="clr-namespace:WpfApp.Converters"
              d:DesignHeight="450" d:DesignWidth="800"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModels:StudentsViewModel/>
     </UserControl.DataContext>
+    <!--<UserControl.Resources>
+        <converters:BirthDateToAgeConverter x:Key="BirthDateToAge"/>
+    </UserControl.Resources>-->
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Content="Usuń" Command="{Binding DeleteCommand}" />
+            <Button Content="{x:Static resx:Resources.Delete}" Command="{Binding DeleteCommand}" />
+            <Button Content="{x:Static resx:Resources.Add}" Command="{Binding AddCommand}" />
+            <Button Content="{x:Static resx:Resources.Edit}" Command="{Binding EditCommand}" />
         </StackPanel>
         
         <DataGrid ItemsSource="{Binding Students}"
@@ -24,6 +30,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:Resources.FirstName}" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Header="{x:Static resx:Resources.LastName}" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Age}" Binding="{Binding BirthDate, Converter={converters:BirthDateToAgeConverter}}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Gender}" Binding="{Binding Gender}"/>
             </DataGrid.Columns>
         </DataGrid>
 
