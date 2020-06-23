@@ -20,6 +20,8 @@
             <Button Content="{x:Static resx:Resources.Delete}" Command="{Binding DeleteCommand}" />
             <Button Content="{x:Static resx:Resources.Add}" Command="{Binding AddCommand}" />
             <Button Content="{x:Static resx:Resources.Edit}" Command="{Binding EditCommand}" />
+            <Button Content="Eksport" Command="{Binding ExportCommand}" />
+            <Button Content="Import" Command="{Binding ImportCommand}" />
         </StackPanel>
         
         <DataGrid ItemsSource="{Binding Students}"

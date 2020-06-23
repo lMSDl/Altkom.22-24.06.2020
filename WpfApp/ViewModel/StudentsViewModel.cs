@@ -1,9 +1,12 @@
 ﻿using DAL.Services;
+using Microsoft.Win32;
 using Models;
+using Newtonsoft.Json;
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +87,57 @@ namespace WpfApp.ViewModel
             }
         }, x => SelectedStudent != null);
 
+
+        public ICommand ExportCommand => new CustomCommand(x =>
+        {
+            var dialog = new SaveFileDialog()
+            {
+                Filter = "Json|*.json|Wszystkie pliki|*.*",
+                FileName = SelectedStudent.FullName,
+                InitialDirectory = "C:\\Users\\Student\\Desktop"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+            
+            var jsonSerializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
+
+            var json = JsonConvert.SerializeObject(SelectedStudent, Formatting.Indented, jsonSerializerSettings);
+            Console.WriteLine(json);
+
+            using (var writer = new StreamWriter(dialog.OpenFile()))
+            {
+                writer.Write(json);
+                writer.Flush();
+            }
+            //File.WriteAllText(dialog.FileName, json);
+
+
+        }, x => SelectedStudent != null);
+
+        public ICommand ImportCommand => new CustomCommand(x =>
+        {
+            var dialog = new OpenFileDialog()
+            {
+                Filter = "Json|*.json",
+                InitialDirectory = "C:\\Users\\Student\\Desktop"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+
+            var json = File.ReadAllText(dialog.FileName);
+
+            SelectedStudent = JsonConvert.DeserializeObject<Student>(json);
+            EditCommand.Execute(null);
+
+        });
 
         //public ICommand AddCommand => new CustomCommand(x => AddOrEditStudent(new Student()));
         //public ICommand EditCommand => new CustomCommand(x => AddOrEditStudent(SelectedStudent), x => SelectedStudent != null);

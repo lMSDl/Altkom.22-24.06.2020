@@ -21,6 +21,7 @@ namespace DAL.Configurations
                 .IsRequired();
 
             Ignore(x => x.SomeProperty);
+            Ignore(x => x.Mentor);
         }
     }
 }
