@@ -8,29 +8,19 @@ using FluentValidation.Attributes;
 using System.ComponentModel;
 
 namespace Models
-{ 
+{
     [Validator(typeof(StudentValidator))]
-    public class Student : DataErrorInfo, ICloneable
+    public class Student : Person
     {
         public Student()
         {
+
         }
 
-        public Student(string firstName, string lastName) 
+        public Student(string firstName, string lastName) : base(firstName, lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
         }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public Gender Gender { get; set; }
-        public string FullName => $"{LastName} {FirstName}";
-
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
+        public string SomeProperty { get; set; }
     }
 }

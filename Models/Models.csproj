@@ -53,7 +53,9 @@
   <ItemGroup>
     <Compile Include="Converters\EnumTypeConverter.cs" />
     <Compile Include="DataErrorInfo.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Gender.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
