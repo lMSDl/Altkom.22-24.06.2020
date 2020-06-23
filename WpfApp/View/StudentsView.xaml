@@ -29,7 +29,7 @@
                   DockPanel.Dock="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:Resources.FirstName}" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="{x:Static resx:Resources.LastName}" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.LastName}" Binding="{Binding LastName}" SortDirection="Ascending"/>
                 <DataGridTextColumn Header="{x:Static resx:Resources.Age}" Binding="{Binding BirthDate, Converter={converters:BirthDateToAgeConverter}}"/>
                 <DataGridTextColumn Header="{x:Static resx:Resources.Gender}" Binding="{Binding Gender}"/>
             </DataGrid.Columns>

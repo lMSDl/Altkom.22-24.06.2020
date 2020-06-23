@@ -11,9 +11,9 @@ namespace Models.Validators
     {
         public StudentValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty();
+            RuleFor(x => x.FirstName).Length(1, 15).NotNull();
             RuleFor(x => x.LastName).Length(1, 15).NotNull();
-            RuleFor(x => x.BirthDate).LessThan(DateTime.Now);
+            RuleFor(x => x.BirthDate).LessThan(DateTime.Now).GreaterThanOrEqualTo(new DateTime(1900,1, 1));
 
         }
     }
