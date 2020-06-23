@@ -14,7 +14,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            new OperatorOverloadingExample().Test();
+            new LinqExample().Test();
             //Abc();
 
             Console.ReadKey();

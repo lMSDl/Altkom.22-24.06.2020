@@ -50,12 +50,19 @@
     <Compile Include="Indexers\GenericIndexerExamples.cs" />
     <Compile Include="Indexers\IndexerExample.cs" />
     <Compile Include="LambdaExpression\LambdaExample.cs" />
+    <Compile Include="LambdaExpression\LinqExample.cs" />
     <Compile Include="Operators\OperatorOverloadingExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{310a3a53-b475-4c65-9b1c-4b0e257fb1f1}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
