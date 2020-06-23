@@ -4,15 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.View"
+        xmlns:resx="clr-namespace:WpfApp.Properties"
         mc:Ignorable="d"
         Title="Main" Height="450" Width="800">
 
     <TabControl>
-        <TabItem Header="Studenci">
+        <TabItem Header="{x:Static resx:Resources.Students}">
             <local:StudentsView/>
         </TabItem>
-        <TabItem Header="Wychowawcy">
-            
+        <TabItem Header="{x:Static resx:Resources.Educators}">
+            <local:EducatorsView/>
         </TabItem>
     </TabControl>
 </Window>

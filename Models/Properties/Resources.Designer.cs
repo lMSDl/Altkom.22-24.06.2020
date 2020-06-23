@@ -61,6 +61,24 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Biologia.
+        /// </summary>
+        public static string Biology {
+            get {
+                return ResourceManager.GetString("Biology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chemia.
+        /// </summary>
+        public static string Chemistry {
+            get {
+                return ResourceManager.GetString("Chemistry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kobieta.
         /// </summary>
         public static string Female {
@@ -75,6 +93,42 @@ namespace Models.Properties {
         public static string Male {
             get {
                 return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matematyka.
+        /// </summary>
+        public static string Math {
+            get {
+                return ResourceManager.GetString("Math", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fizyka.
+        /// </summary>
+        public static string Physics {
+            get {
+                return ResourceManager.GetString("Physics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Psychologia.
+        /// </summary>
+        public static string Psychology {
+            get {
+                return ResourceManager.GetString("Psychology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Socjologia.
+        /// </summary>
+        public static string Sociology {
+            get {
+                return ResourceManager.GetString("Sociology", resourceCulture);
             }
         }
     }

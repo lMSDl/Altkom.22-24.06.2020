@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Biology" xml:space="preserve">
+    <value>Biologia</value>
+  </data>
+  <data name="Chemistry" xml:space="preserve">
+    <value>Chemia</value>
+  </data>
   <data name="Female" xml:space="preserve">
     <value>Kobieta</value>
   </data>
   <data name="Male" xml:space="preserve">
     <value>Mężczyzna</value>
+  </data>
+  <data name="Math" xml:space="preserve">
+    <value>Matematyka</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>Fizyka</value>
+  </data>
+  <data name="Psychology" xml:space="preserve">
+    <value>Psychologia</value>
+  </data>
+  <data name="Sociology" xml:space="preserve">
+    <value>Socjologia</value>
   </data>
 </root>
