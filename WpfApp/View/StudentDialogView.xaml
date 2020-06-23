@@ -22,6 +22,16 @@
                 <x:Type TypeName="models:Gender"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="True">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     
     <DockPanel Margin="15">
@@ -33,12 +43,13 @@
         </WrapPanel>
         
     <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="0, 10, 10, 20">
-        <Label Content="{x:Static resx:Resources.FirstName}"/>
-        <TextBox Text="{Binding Student.FirstName}"/>
-        <Label Content="{x:Static resx:Resources.LastName}"/>
-            <TextBox Text="{Binding Student.LastName}"/>
+            <Label Content="{x:Static resx:Resources.FirstName}"/>
+            <TextBox Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Student.FirstName, 
+                    ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
+            <Label Content="{x:Static resx:Resources.LastName}"/>
+            <TextBox Text="{Binding Student.LastName, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="{x:Static resx:Resources.BirthDate}"/>
-            <DatePicker SelectedDate="{Binding Student.BirthDate}"/>
+            <DatePicker SelectedDate="{Binding Student.BirthDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="{x:Static resx:Resources.Gender}"/>
             <ComboBox SelectedItem="{Binding Student.Gender}"
                       ItemsSource="{Binding Source={StaticResource genderEnum}}"/>

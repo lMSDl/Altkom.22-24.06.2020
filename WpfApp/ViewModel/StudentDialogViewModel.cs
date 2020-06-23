@@ -13,6 +13,6 @@ namespace WpfApp.ViewModel
     public class StudentDialogViewModel
     {
         public Student Student { get; set; }
-        public ICommand OkCommand => new CustomCommand(x => ((Window)x).DialogResult = true);
+        public ICommand OkCommand => new CustomCommand(x => ((Window)x).DialogResult = true, x => Student.IsValid);
     }
 }

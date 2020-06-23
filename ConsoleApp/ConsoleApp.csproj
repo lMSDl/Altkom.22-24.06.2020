@@ -47,7 +47,10 @@
     <Compile Include="Delegates\BuildInDelegatesExample.cs" />
     <Compile Include="Delegates\EventExample.cs" />
     <Compile Include="Delegates\MulticastDelegateExample.cs" />
+    <Compile Include="Indexers\GenericIndexerExamples.cs" />
+    <Compile Include="Indexers\IndexerExample.cs" />
     <Compile Include="LambdaExpression\LambdaExample.cs" />
+    <Compile Include="Operators\OperatorOverloadingExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

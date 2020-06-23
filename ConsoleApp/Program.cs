@@ -1,5 +1,7 @@
 ﻿using ConsoleApp.Delegates;
+using ConsoleApp.Indexers;
 using ConsoleApp.LambdaExpression;
+using ConsoleApp.Operators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,8 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            new LambdaExample().Test();
-            Abc();
+            new OperatorOverloadingExample().Test();
+            //Abc();
 
             Console.ReadKey();
         }

@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Models.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation.Attributes;
+using System.ComponentModel;
 
 namespace Models
 { 
-    public class Student : ICloneable
+    [Validator(typeof(StudentValidator))]
+    public class Student : DataErrorInfo, ICloneable
     {
         public Student()
         {
