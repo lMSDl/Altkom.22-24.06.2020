@@ -8,12 +8,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WpfApp.Commands;
 using WpfApp.View;
+using Newtonsoft.Json.Linq;
+using Service;
 
 namespace WpfApp.ViewModel
 {
@@ -38,7 +41,7 @@ namespace WpfApp.ViewModel
             }, x => SelectedStudent != null);
         }
 
-        private IStudentService Service { get; } = new DbStudentService();
+        private IStudentService Service { get; } = new StudentService();
 
         //public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student> { new Student { FirstName = "Adam", LastName = "Adamski", BirthDate = new DateTime(1978, 2, 21) }, new Student { FirstName = "Ewa", LastName = "Ewowska", BirthDate = new DateTime(1990, 1, 1), Gender = Gender.Female  } };
         public ObservableCollection<Student> Students => _students ?? (_students = new ObservableCollection<Student>(Service.Read()));
@@ -77,8 +80,9 @@ namespace WpfApp.ViewModel
                 try
                 {
                     Service.Update(student.Id, student);
-                    Students.Remove(SelectedStudent);
-                    Students.Add(student);
+                    var studentIndex = Students.Select((collectionStudent, index) => new { collectionStudent, index }).Single(param => param.collectionStudent.Id == SelectedStudent.Id).index;
+                    Students.RemoveAt(studentIndex);
+                    Students.Insert(studentIndex, student);
                 }
                 catch
                 {
@@ -104,11 +108,14 @@ namespace WpfApp.ViewModel
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 DefaultValueHandling = DefaultValueHandling.Ignore,
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                //PreserveReferencesHandling = PreserveReferencesHandling.Objects
             };
 
             var json = JsonConvert.SerializeObject(SelectedStudent, Formatting.Indented, jsonSerializerSettings);
+            var xNode = JsonConvert.DeserializeXNode(json, nameof(Student));
+
             Console.WriteLine(json);
+            Console.WriteLine(xNode.ToString());
 
             using (var writer = new StreamWriter(dialog.OpenFile()))
             {
