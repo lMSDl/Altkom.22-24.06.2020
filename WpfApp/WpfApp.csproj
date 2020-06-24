@@ -75,6 +75,8 @@
     <Compile Include="Commands\AsyncCustomCommand.cs" />
     <Compile Include="Commands\CustomCommand.cs" />
     <Compile Include="Converters\BirthDateToAgeConverter.cs" />
+    <Compile Include="Encryption\AsymmetricEncryptor.cs" />
+    <Compile Include="Encryption\Encryptor.cs" />
     <Compile Include="ViewModel\EducatorDialogViewModel.cs" />
     <Compile Include="ViewModel\StudentDialogViewModel.cs" />
     <Compile Include="ViewModel\EducatorsViewModel.cs" />

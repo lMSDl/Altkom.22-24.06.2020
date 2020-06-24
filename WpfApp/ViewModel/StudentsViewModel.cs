@@ -18,6 +18,7 @@ using WpfApp.View;
 using Newtonsoft.Json.Linq;
 using Service;
 using System.ComponentModel;
+using WpfApp.Encryption;
 
 namespace WpfApp.ViewModel
 {
@@ -119,16 +120,21 @@ namespace WpfApp.ViewModel
             };
 
             var json = JsonConvert.SerializeObject(SelectedStudent, Formatting.Indented, jsonSerializerSettings);
-            var xNode = JsonConvert.DeserializeXNode(json, nameof(Student));
+
+            //var encryptor = new Encryptor("1234");
+            //var bytes = encryptor.Encrypt(json, "json");
+
+            var encryptor = new AsymmetricEncryptor();
+            var bytes = encryptor.Encrypt(Encoding.Unicode.GetBytes(json), "CN=School");
 
             Console.WriteLine(json);
-            Console.WriteLine(xNode.ToString());
+            File.WriteAllBytes(dialog.FileName, bytes);
 
-            using (var writer = new StreamWriter(dialog.OpenFile()))
-            {
-                writer.Write(json);
-                writer.Flush();
-            }
+            //using (var writer = new StreamWriter(dialog.OpenFile()))
+            //{
+            //    writer.Write(json);
+            //    writer.Flush();
+            //}
             //File.WriteAllText(dialog.FileName, json);
 
 
@@ -146,7 +152,14 @@ namespace WpfApp.ViewModel
                 return;
 
 
-            var json = File.ReadAllText(dialog.FileName);
+            var bytes = File.ReadAllBytes(dialog.FileName);
+
+            //var encryptor = new Encryptor("1234");
+            //bytes = encryptor.Decrypt(bytes, "json");
+            var encryptor = new AsymmetricEncryptor();
+            bytes = encryptor.Decrypt(bytes, "CN=School");
+
+            var json = Encoding.Unicode.GetString(bytes);
 
             SelectedStudent = JsonConvert.DeserializeObject<Student>(json);
             EditCommand.Execute(null);
