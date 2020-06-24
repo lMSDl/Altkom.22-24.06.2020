@@ -4,59 +4,62 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace DAL.Services
 {
     public class DbEntityService<T> : ICrud<T> where T : Entity
     {
-        public int Create(T entity)
+        public async Task<int> CreateAsync(T entity)
         {
             using (var context = new DbContext())
             {
                 entity.Id = 0;
                 entity = context.Set<T>().Add(entity);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return entity.Id;
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using (var context = new DbContext())
             {
-                var entity = context.Set<T>().Find(id);
+                var entity = await context.Set<T>().FindAsync(id);
                 context.Set<T>().Remove(entity);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 //context.Dispose();
             }
         }
 
-        public ICollection<T> Read()
+        public async Task<ICollection<T>> ReadAsync()
         {
             using (var context = new DbContext())
             {
-                var entities = context.Set<T>().ToList();
-                return entities;
+                return await context.Set<T>().ToListAsync();
+
+                //var entities = context.Set<T>().ToList();
+                //return await Task.FromResult(entities);
             }
         }
 
-        public T Read(int id)
+        public async Task<T> ReadAsync(int id)
         {
             using (var context = new DbContext())
             {
-                return context.Set<T>().Find(id);
+                return await context.Set<T>().FindAsync(id);
             }
         }
 
-        public void Update(int id, T entity)
+        public async Task UpdateAsync(int id, T entity)
         {
             using (var context = new DbContext())
             {
                 entity.Id = id;
                 context.Set<T>().Attach(entity);
                 context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
+                await  context.SaveChangesAsync();
             }
         }
     }

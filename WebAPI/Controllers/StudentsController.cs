@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace WebAPI.Controllers
@@ -13,57 +14,60 @@ namespace WebAPI.Controllers
     {
         private DbStudentService Service { get; } = new DbStudentService();
 
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return Ok(Service.Read());
+            return Ok(await Service.ReadAsync());
         }
 
-        public IHttpActionResult Get(string lastName)
+        public async Task<IHttpActionResult> Get(string lastName)
         {
-            return Ok(Service.Read(lastName));
+            return Ok(Service.ReadAsync(lastName));
         }
 
         [Route("api/students/{id}", Name = "GetStudent")]
-        public IHttpActionResult Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            var student = Service.Read(id);
+            var student = await Service.ReadAsync(id);
             if (student == null)
                 return NotFound();
 
-            return Ok(Service.Read(id));
+            return Ok(await Service.ReadAsync(id));
         }
 
-        public IHttpActionResult Post(Student student)
+        public async Task<IHttpActionResult> Post(Student student)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var id = Service.Create(student);
+            var id =await  Service.CreateAsync(student);
             return CreatedAtRoute("GetStudent", new { id = id }, id);
         }
 
         [HttpPut]
         [Route("api/students/{id}")]
-        public IHttpActionResult Put(int id, Student student)
+        public async Task<IHttpActionResult> Put(int id, Student student)
         {
-            if (Service.Read(id) == null)
+            if (await Service.ReadAsync(id) == null)
                 return NotFound();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Service.Update(id, student);
+            await Task.Delay(10000);
+
+
+            await Service.UpdateAsync(id, student);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        public IHttpActionResult Delete(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
-            var student = Service.Read(id);
+            var student = await Service.ReadAsync(id);
             if (student == null)
                 return NotFound();
 
-            Service.Delete(id);
+            await Service.DeleteAsync(id);
             return StatusCode(HttpStatusCode.NoContent);
         }
     }

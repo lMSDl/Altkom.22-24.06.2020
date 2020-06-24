@@ -27,55 +27,55 @@ namespace Service
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public ICollection<Student> Read(string lastName)
+        public async Task<ICollection<Student>> ReadAsync(string lastName)
         {
-            var response = _client.GetAsync($"/api/students?lastName={lastName}").Result;
+            var response = await _client.GetAsync($"/api/students?lastName={lastName}");
             if (response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsAsync<ICollection<Student>>().Result;
+                return await response.Content.ReadAsAsync<ICollection<Student>>();
             }
             return null;
         }
 
-        public int Create(Student entity)
+        public async Task<int> CreateAsync(Student entity)
         {
-            var response = _client.PostAsJsonAsync($"/api/students", entity).Result;
+            var response = await _client.PostAsJsonAsync($"/api/students", entity);
             if(response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsAsync<int>().Result;
+                return await response.Content.ReadAsAsync<int>();
             }
             return 0;
         }
 
-        public ICollection<Student> Read()
+        public async Task<ICollection<Student>> ReadAsync()
         {
-            var response = _client.GetAsync("/api/students").Result;
+            var response = await _client.GetAsync("/api/students");
             if(response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsAsync<ICollection<Student>>().Result;
+                return await response.Content.ReadAsAsync<ICollection<Student>>();
             }
             return null;
         }
 
-        public Student Read(int id)
+        public async Task<Student> ReadAsync(int id)
         {
-            var response = _client.GetAsync($"/api/students/{id}").Result;
+            var response = await _client.GetAsync($"/api/students/{id}");
             if (response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsAsync<Student>().Result;
+                return await response.Content.ReadAsAsync<Student>();
             }
             return null;
         }
 
-        public void Update(int id, Student entity)
+        public async Task UpdateAsync(int id, Student entity)
         {
-            var response = _client.PutAsJsonAsync($"/api/students/{id}", entity).Result;
+            var response = await _client.PutAsJsonAsync($"/api/students/{id}", entity);
             response.EnsureSuccessStatusCode();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var response = _client.DeleteAsync($"/api/students/{id}").Result;
+            var response = await _client.DeleteAsync($"/api/students/{id}");
             response.EnsureSuccessStatusCode();
         }
     }

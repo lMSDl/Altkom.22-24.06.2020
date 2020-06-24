@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AsyncCustomCommand.cs" />
     <Compile Include="Commands\CustomCommand.cs" />
     <Compile Include="Converters\BirthDateToAgeConverter.cs" />
     <Compile Include="ViewModel\EducatorDialogViewModel.cs" />

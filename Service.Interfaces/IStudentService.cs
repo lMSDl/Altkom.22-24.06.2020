@@ -9,6 +9,6 @@ namespace Service.Interfaces
 {
     public interface IStudentService : ICrud<Student>
     {
-        ICollection<Student> Read(string lastName);
+        Task<ICollection<Student>> ReadAsync(string lastName);
     }
 }

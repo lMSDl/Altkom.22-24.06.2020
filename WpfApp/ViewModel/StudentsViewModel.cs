@@ -17,21 +17,27 @@ using WpfApp.Commands;
 using WpfApp.View;
 using Newtonsoft.Json.Linq;
 using Service;
+using System.ComponentModel;
 
 namespace WpfApp.ViewModel
 {
-    public class StudentsViewModel
+    public class StudentsViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Student> _students;
 
         public StudentsViewModel()
         {
+            Service.ReadAsync().ContinueWith(x =>
+            {
+                Students = new ObservableCollection<Student>(x.Result);
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(Students)));
+            });
+
             //DeleteCommand = new CustomCommand(x => Students.Remove(SelectedStudent), x => SelectedStudent != null);
-            DeleteCommand = new CustomCommand(x =>
+            DeleteCommand = new CustomCommand(async x =>
             {
                 try
                 {
-                    Service.Delete(SelectedStudent.Id);
+                    await Service.DeleteAsync(SelectedStudent.Id);
                     Students.Remove(SelectedStudent);
                 }
                 catch
@@ -44,13 +50,13 @@ namespace WpfApp.ViewModel
         private IStudentService Service { get; } = new StudentService();
 
         //public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student> { new Student { FirstName = "Adam", LastName = "Adamski", BirthDate = new DateTime(1978, 2, 21) }, new Student { FirstName = "Ewa", LastName = "Ewowska", BirthDate = new DateTime(1990, 1, 1), Gender = Gender.Female  } };
-        public ObservableCollection<Student> Students => _students ?? (_students = new ObservableCollection<Student>(Service.Read()));
+        public ObservableCollection<Student> Students { get; set; }
 
         public Student SelectedStudent { get; set; }
 
         public ICommand DeleteCommand { get; }
 
-        public ICommand AddCommand => new CustomCommand(x =>
+        public ICommand AddCommand => new CustomCommand(async x =>
         {
             var student = new Student();
             while (true)
@@ -59,7 +65,7 @@ namespace WpfApp.ViewModel
                 {
                     try
                     {
-                        student.Id = Service.Create(student);
+                        student.Id = await Service.CreateAsync(student);
                         Students.Add(student);
                         return;
                     }
@@ -72,15 +78,16 @@ namespace WpfApp.ViewModel
                     return;
             }
         });
-        public ICommand EditCommand => new CustomCommand(x =>
+        public ICommand EditCommand => new AsyncCustomCommand(async x =>
         {
             var student = (Student)SelectedStudent.Clone();
             if (new StudentDialogView(student).ShowDialog() == true)
             {
                 try
                 {
-                    Service.Update(student.Id, student);
-                    var studentIndex = Students.Select((collectionStudent, index) => new { collectionStudent, index }).Single(param => param.collectionStudent.Id == SelectedStudent.Id).index;
+                    var selectedStudent = SelectedStudent;
+                    await Service.UpdateAsync(student.Id, student);
+                    var studentIndex = Students.Select((collectionStudent, index) => new { collectionStudent, index }).Single(param => param.collectionStudent.Id == selectedStudent.Id).index;
                     Students.RemoveAt(studentIndex);
                     Students.Insert(studentIndex, student);
                 }
@@ -145,6 +152,8 @@ namespace WpfApp.ViewModel
             EditCommand.Execute(null);
 
         });
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         //public ICommand AddCommand => new CustomCommand(x => AddOrEditStudent(new Student()));
         //public ICommand EditCommand => new CustomCommand(x => AddOrEditStudent(SelectedStudent), x => SelectedStudent != null);

@@ -9,10 +9,10 @@ namespace Service.Interfaces
 {
     public interface ICrud<T> where T : Entity //new(), class
     {
-        int Create(T entity);
-        ICollection<T> Read();
-        T Read(int id);
-        void Update(int id, T entity);
-        void Delete(int id);
+        Task<int> CreateAsync(T entity);
+        Task<ICollection<T>> ReadAsync();
+        Task<T> ReadAsync(int id);
+        Task UpdateAsync(int id, T entity);
+        Task DeleteAsync(int id);
     }
 }
