@@ -121,10 +121,17 @@ namespace WpfApp.ViewModel
 
             var json = JsonConvert.SerializeObject(SelectedStudent, Formatting.Indented, jsonSerializerSettings);
 
-            //var encryptor = new Encryptor("1234");
-            //var bytes = encryptor.Encrypt(json, "json");
+            using (var word = new WordWrapper())
+            {
+                word.CreateDocument();
+                word.AppendTest(json);
+                word.SaveAs(dialog.FileName.Replace(".json", ".docx"));
+            }
 
-            var encryptor = new AsymmetricEncryptor();
+                //var encryptor = new Encryptor("1234");
+                //var bytes = encryptor.Encrypt(json, "json");
+
+                var encryptor = new AsymmetricEncryptor();
             var bytes = encryptor.Encrypt(Encoding.Unicode.GetBytes(json), "CN=School");
 
             Console.WriteLine(json);
