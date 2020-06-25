@@ -9,7 +9,7 @@ namespace WpfApp
 {
     public class WordWrapper : IDisposable
     {
-        Application _word = null;
+        dynamic _word = null;
 
         public WordWrapper()
         {
